@@ -4,9 +4,12 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+
+console.log('NODE_ENV: ', process.env.NODE_ENV && process.env.NODE_ENV.trim() == 'production' ? 'production' : 'development');
 
 module.exports = {
   entry: ['./src/js/app.js'],
@@ -29,15 +32,25 @@ module.exports = {
       },
       {
         test: /\.(css|scss|sass)$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../'
+            }
+          },
+          { loader: 'css-loader' },
+          { loader: 'sass-loader' }
+        ]
       },
       {
-        test: /\.(jp(e*)g|png|gif|svg)$/,
+        test: /\.(jpe?g|png|gif|svg)$/i,
         use: {
           loader: 'url-loader',
           options: {
-            name: '[name].[ext]',
-            outputPath: '../img/',
+            name: '[path][name].[ext]',
+            context: 'src',
+            outputPath: './',
             limit: 10000, // Convert images < 10kb to base64 strings
             emitFile: false // Don't emit file since this is taken care of by CopyWebpackPlugin
           }
@@ -52,11 +65,11 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({ filename: 'css/app.css' }),
-    new CopyWebpackPlugin([{ from: 'src/img/', to: 'img' }]),
     new FaviconsWebpackPlugin({
       logo: './src/img/favicon.png',
       prefix: './img/favicons/',
       inject: true,
+      emitStats: false,
       icons: {
         android: true,
         appleIcon: true,
@@ -65,6 +78,12 @@ module.exports = {
         firefox: true,
         windows: true
       }
+    }),
+    new CopyWebpackPlugin([{ from: 'src/img/', to: 'img' }]),
+    new ImageminPlugin({
+      disable: process.env.NODE_ENV !== 'production', // Disable during development
+      test: /\.(jpe?g|png|gif|svg)$/i,
+      minFileSize: 10000 // Only apply this one to files over 10kb
     })
   ].concat(
     // This function generates HTML files for each .html in /src directory
@@ -78,7 +97,8 @@ module.exports = {
         // Create new HtmlWebpackPlugin with options
         return new HtmlWebpackPlugin({
           filename: `${filename}.html`,
-          template: `./src/${filename}.html`
+          template: `./src/${filename}.html`,
+          hash: true
         });
       })
   )

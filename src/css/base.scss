@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+// Import font
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,800');
+
+// Import initial variables from Bulma (colors, mixins, etc.)
+// We import initial variables here so we can use color variables like $white and $black in our theme customization
+@import '~bulma/sass/utilities/_all.sass';
+
+// Set your brand colors
+$primary: blue;
+
+// Customize theme
+$body-family: 'Lato', serif;
+$body-background-color: $white-ter;
+
+// Import base Bulma
+@import '~bulma/sass/base/_all.sass';
+@import '~bulma/sass/grid/columns.sass';
+
+// Import from Bulma as needed
+@import '~bulma/sass/elements/button.sass';
+@import '~bulma/sass/elements/container.sass';
+@import '~bulma/sass/elements/title.sass';
+@import '~bulma/sass/layout/hero.sass';
+@import '~bulma/sass/layout/section.sass';

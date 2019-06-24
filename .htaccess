@@ -1,0 +1,12 @@
+# This .htaccess file is specifically made to redirect from root to /dist directory.
+# Further, redirect any CSS/JS/image assets into the appropriate directory as requested within /dist.
+# This is useful for putting a static site up on a server.
+
+RewriteEngine on
+RewriteBase /
+
+# Rewrites all URLS without dist in them
+RewriteCond %{REQUEST_URI} !^/dist/
+
+# Rewrite all those to insert /folder
+RewriteRule ^(.*)$ /dist/$1 [L]
