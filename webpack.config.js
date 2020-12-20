@@ -15,7 +15,8 @@ module.exports = {
   entry: ['./src/js/app.js'],
   devServer: {
     watchContentBase: true,
-    contentBase: path.resolve(__dirname, 'src')
+    contentBase: path.resolve(__dirname, 'src'),
+    host: '0.0.0.0'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),

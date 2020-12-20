@@ -1,6 +1,6 @@
-# Webpack Base for static websites
+# Bulma Webpack Starter for Static Sites
 
-## Quickly spin up a static site skeleton with Webpack
+## Quickly spin up a static site skeleton with Bulma and Webpack
 
 ### Getting Started
 
