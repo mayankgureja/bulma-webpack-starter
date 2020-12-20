@@ -1,8 +1,8 @@
 # Bulma Webpack Starter for Static Sites
 
-## Quickly spin up a static site skeleton with Bulma and Webpack
+Quickly spin up a static site skeleton with Bulma and Webpack
 
-### Getting Started
+## Getting Started
 
 * Install Node.js dependencies with `yarn`
 
