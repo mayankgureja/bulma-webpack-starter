@@ -16,11 +16,12 @@ $body-background-color: $white-ter;
 
 // Import base Bulma
 @import '~bulma/sass/base/_all.sass';
-@import '~bulma/sass/grid/columns.sass';
+@import '~bulma/sass/form/_all.sass';
+@import '~bulma/sass/grid/_all.sass';
+@import '~bulma/sass/helpers/_all.sass';
+@import '~bulma/sass/layout/_all.sass';
 
 // Import from Bulma as needed
 @import '~bulma/sass/elements/button.sass';
 @import '~bulma/sass/elements/container.sass';
 @import '~bulma/sass/elements/title.sass';
-@import '~bulma/sass/layout/hero.sass';
-@import '~bulma/sass/layout/section.sass';
